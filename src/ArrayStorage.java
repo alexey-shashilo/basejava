@@ -1,3 +1,5 @@
+import static java.lang.System.arraycopy;
+
 /**
  * Array based storage for Resumes
  */
@@ -14,13 +16,13 @@ public class ArrayStorage {
 
     void save(Resume r) {
         storage[countResume] = r;
-        countResume += 1;
+        countResume++;
     }
 
     Resume get(String uuid) {
-        for (Resume resume : storage) {
-            if (resume != null && resume.getUuid().equals(uuid)) {
-                return resume;
+        for (int i = 0; i < countResume; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
@@ -31,17 +33,15 @@ public class ArrayStorage {
             if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[countResume - 1];
                 storage[countResume - 1] = null;
-                countResume -= 1;
+                countResume--;
             }
         }
     }
 
     Resume[] getAll() {
-        Resume[] r = new Resume[size()];
-        for (int i = 0; i < countResume; i++) {
-            r[i] = storage[i];
-        }
-        return r;
+        Resume[] resumes = new Resume[countResume];
+        arraycopy(storage, 0, resumes, 0, countResume);
+        return resumes;
     }
 
     int size() {
