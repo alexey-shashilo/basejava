@@ -2,7 +2,6 @@ package storage;
 
 import model.Resume;
 
-import java.util.Arrays;
 
 public interface Storage {
     void clear();
@@ -16,4 +15,6 @@ public interface Storage {
     Resume[] getAll();
 
     int size();
+
+    void update(Resume r);
 }
